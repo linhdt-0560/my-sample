@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -47,12 +47,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+        $data['is_subscribed'] = empty($data['is_subscribed']) ? 0 : 1;
+        $data['terms'] = empty($data['terms']) ? 0 : 1;
+
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'is_subscribed' => 'boolean',
             'password' => 'required|min:6|confirmed',
+            'terms' => 'accepted'
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -62,9 +69,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['is_subscribed'] = empty($data['is_subscribed']) ? 0 : 1;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'is_subscribed' => $data['is_subscribed'],
             'password' => bcrypt($data['password']),
         ]);
     }
