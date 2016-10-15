@@ -28,29 +28,19 @@
                         <tbody>
                         <tr v-for="row in gridData">
                             <td>
-                                <a v-bind:href="'/marketing-image/' + row.Id "><img v-bind:src="'/imgs/marketing/thumbnails/thumb-' + row.Name + '.' + row.Ext "></a>
+                                {{row.Id}}
                             </td>
                             <td>
-                                <a v-bind:href="'/widget/' + row.Id + '-' + row.Slug "> {{ row.Name }}</a>
+                                <a v-bind:href="'/gadget/' + row.Id">{{row.Name}}</a>
                             </td>
                             <td>
-                                {{ row.Weight }}
+                                {{row.Created }}
                             </td>
-                            <td>
-                                {{ convertBoolean(row.Featured) }}
-                            </td>
-                            <td>
-                                {{ convertBoolean(row.Active) }}
-                            </td>
-
-                            <td>
-                                {{ row.Created }}
-                            </td>
-                            <td ><a v-bind:href="'/widget/' + row.Id + '/edit'">
-                                <button type="button" class="btn btn-default">
+                            <td ><a v-bind:href="'/gadget/' + row.Id + '/edit'">
+                                 <button type="button" class="btn btn-default">
                                     Edit
-                                </button>
-                            </a>
+                                 </button>
+                                 </a>
                             </td>
                         </tr>
                         </tbody>
@@ -72,6 +62,7 @@
 
                 </div>
 
+                <!-- paginate here -->
 
                 <ul class="pagination pull-right">
                     <li><a @click="getData(first_page_url)"> first </a></li>
@@ -101,7 +92,9 @@
         mounted: function () {
 
             this.loadData();
+
         },
+
 
 
         data: function () {
@@ -111,7 +104,7 @@
             return {
 
                 query: '',
-                gridColumns: ['Thumbnail', 'Name', 'Weight', 'Featured', 'Active','Created'],
+                gridColumns: ['Id', 'Name', 'Created'],
                 gridData: [],
                 total: null,
                 next_page_url: null,
@@ -130,7 +123,6 @@
 
         },
 
-
         methods: {
 
             sortBy: function (key){
@@ -147,15 +139,15 @@
             },
 
             loadData: function (){
-                $.getJSON('api/marketing-image-data', function (data) {
+                $.getJSON('api/gadget-data', function (data) {
                     this.gridData = data.data;
                     this.total = data.total;
                     this.last_page =  data.last_page;
                     this.next_page_url = data.next_page_url;
                     this.prev_page_url = data.prev_page_url;
                     this.current_page = data.current_page;
-                    this.first_page_url = 'api/marketing-image-data?page=1';
-                    this.last_page_url = 'api/marketing-image-data?page=' + this.last_page;
+                    this.first_page_url = 'api/gadget-data?page=1';
+                    this.last_page_url = 'api/gadget-data?page=' + this.last_page;
                     this.setPageNumbers();
                 }.bind(this));
             },
@@ -170,13 +162,6 @@
 
             },
 
-            convertBoolean: function (value){
-
-                return value == 1 ? 'Yes' : 'No';
-
-
-            },
-
             getData: function (request){
 
                 let getPage;
@@ -186,16 +171,16 @@
                     case this.prev_page_url :
 
                         getPage = this.prev_page_url +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder;
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder;
 
                         break;
 
                     case this.next_page_url :
 
                         getPage = this.next_page_url +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder;
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder;
 
                         break;
 
@@ -203,25 +188,25 @@
                     case this.first_page_url :
 
                         getPage = this.first_page_url +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder;
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder;
 
                         break;
 
                     case this.last_page_url :
 
                         getPage = this.last_page_url +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder;
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder;
 
                         break;
 
                     case this.query :
 
-                        getPage = 'api/marketing-image-data?' +
-                                'keyword=' + this.query +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder;
+                        getPage = 'api/gadget-data?' +
+                                  'keyword=' + this.query +
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder;
 
                         break;
 
@@ -229,11 +214,11 @@
 
                         if( this.go_to_page != '' && this.pageInRange()){
 
-                            getPage = 'api/marketing-image-data?' +
-                                    'page=' + this.go_to_page +
-                                    '&column=' + this.sortKey +
-                                    '&direction=' + this.sortOrder +
-                                    '&keyword=' + this.query;
+                            getPage = 'api/gadget-data?' +
+                                      'page=' + this.go_to_page +
+                                      '&column=' + this.sortKey +
+                                      '&direction=' + this.sortOrder +
+                                      '&keyword=' + this.query;
 
                             this.clearPageNumberInputBox();
 
@@ -246,11 +231,11 @@
 
                     default :
 
-                        getPage = 'api/marketing-image-data?' +
-                                'page=' + request +
-                                '&column=' + this.sortKey +
-                                '&direction=' + this.sortOrder +
-                                '&keyword=' + this.query;
+                        getPage = 'api/gadget-data?' +
+                                  'page=' + request +
+                                  '&column=' + this.sortKey +
+                                  '&direction=' + this.sortOrder +
+                                  '&keyword=' + this.query;
 
                         break;
                 }
@@ -276,8 +261,8 @@
                             this.last_page =  data.last_page;
                             this.next_page_url = (data.next_page_url == null) ? null : data.next_page_url + '&keyword=' +this.query;
                             this.prev_page_url = (data.prev_page_url == null) ? null : data.prev_page_url + '&keyword=' +this.query;
-                            this.first_page_url = 'api/marketing-image-data?page=1&keyword=' +this.query;
-                            this.last_page_url = 'api/marketing-image-data?page=' + this.last_page + '&keyword=' +this.query;
+                            this.first_page_url = 'api/gadget-data?page=1&keyword=' +this.query;
+                            this.last_page_url = 'api/gadget-data?page=' + this.last_page + '&keyword=' +this.query;
                             this.current_page = data.current_page;
                             this.resetPageNumbers();
                         }.bind(this));

@@ -78,8 +78,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><img class="circ" src="
-                   {{ Gravatar::get(Auth::user()->email)  }}"></li>
+                    <li><img class="circ" src="{{ Gravatar::get(Auth::user()->email)  }}"></li>
                 @else
                     <li><a href="/login">Login</a></li>
                     <li><a href="/register">Register</a></li>

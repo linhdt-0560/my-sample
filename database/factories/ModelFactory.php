@@ -47,3 +47,16 @@ $factory->define(App\Gadget::class, function ($faker) {
 
     ];
 });
+// Begin Gadget Factory
+
+$factory->define(App\Gadget::class, function (Faker\Generator $faker) {
+
+    return [
+
+        'name' => $faker->unique()->word,
+
+    ];
+
+});
+
+// End Gadget Factory

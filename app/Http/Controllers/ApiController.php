@@ -7,10 +7,23 @@ use Illuminate\Http\Request;
 use App\Queries\GridQueries\GridQuery;
 use App\Queries\GridQueries\WidgetQuery;
 use App\Queries\GridQueries\MarketingImageQuery;
-use App\Http\Requests;
+use App\Queries\GridQueries\GadgetQuery;
 
 class ApiController extends Controller
 {
+
+    // Begin Gadget Api Data Grid Method
+
+    public function gadgetData(Request $request)
+    {
+
+        return GridQuery::sendData($request, new GadgetQuery);
+
+    }
+
+    // End Gadget Api Data Grid Method
+
+
 
     public function widgetData(Request $request)
     {

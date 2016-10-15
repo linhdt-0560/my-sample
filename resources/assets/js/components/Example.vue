@@ -4,7 +4,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">List the Beatles</div>
-                    <div><ul v-for="member in beatles">
+                    <div>
+                        <ul v-for="member in beatles">
                         <li>{{member}}</li>
                     </ul>
                     </div>

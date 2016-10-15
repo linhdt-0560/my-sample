@@ -97,3 +97,11 @@ Route::get( 'widget/{id}-{slug?}', ['as' => 'widget.show', 'uses' => 'WidgetCont
 Route::resource('widget', 'WidgetController', ['except' => ['show', 'create']]);
 
 
+
+// Begin Gadget Routes
+
+Route::get('api/gadget-data', 'ApiController@gadgetData');
+
+Route::resource('gadget', 'GadgetController');
+
+// End Gadget Routes

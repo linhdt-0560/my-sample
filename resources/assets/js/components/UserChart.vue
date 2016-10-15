@@ -1,47 +1,50 @@
 <template>
 
-    <div class="form-group pull-left">
-        <label for="type">chart type:</label>
-        <select class="form-control" id="type" v-model="type" v-on:change="changeType">
-            <option>line</option>
-            <option>bar</option>
-        </select>
+    <div>
+
+        <div class="form-group pull-left">
+
+            <label for="type">chart type:</label>
+            <select class="form-control" id="type" v-model="type" v-on:change="changeType">
+                <option>line</option>
+                <option>bar</option>
+            </select>
 
 
-        <label for="period" id="label">chart periods:</label>
-        <select class="form-control" id="period" v-model="period" v-on:change="changePeriod">
-            <option value="1year">1 year</option>
-            <option value="3months">3 months</option>
-            <option value="30days">30 days</option>
-            <option value="1week">1 week</option>
-            <option value="yesterday">Yesterday</option>
-            <option value="today">Today</option>
-            <option value="Custom">Custom</option>
+            <label for="period" id="label">chart periods:</label>
+            <select class="form-control" id="period" v-model="period" v-on:change="changePeriod">
+                <option value="1year">1 year</option>
+                <option value="3months">3 months</option>
+                <option value="30days">30 days</option>
+                <option value="1week">1 week</option>
+                <option value="Custom">Custom</option>
 
-        </select>
+            </select>
+
+        </div>
+
+        <div v-show="showCustom()"  class="col-sm-offset-4">
+
+            <label for="custom-date" id="label">Choose Custom Period:</label>
+
+            <form id="custom-date">
+
+                <input type="date" v-model="startDate" name="start_date" value=""></input>
+
+                &nbsp; &nbsp; to &nbsp; &nbsp;
+
+                <input type="date" v-model="endDate" name="end_date" value=""></input>
+
+                <button class="btn-default" @click.prevent="submitCustom()">Go!</button>
+
+
+            </form>
+
+        </div>
+
+        <canvas id="canvas"></canvas>
 
     </div>
-
-    <div v-show="showCustom()"  class="col-sm-offset-4">
-
-        <label for="custom-date" id="label">Choose Custom Period:</label>
-
-        <form id="custom-date">
-
-            <input type="date" v-model="startDate" name="start_date" value=""></input>
-
-            &nbsp; &nbsp; to &nbsp; &nbsp;
-
-            <input type="date" v-model="endDate" name="end_date" value=""></input>
-
-            <button class="btn-default" @click.prevent="submitCustom()">Go!</button>
-
-
-        </form>
-
-    </div>
-
-    <canvas id="canvass"></canvas>
 
 </template>
 
@@ -159,7 +162,13 @@
 
             setConfig : function () {
 
-                var ctx = document.getElementById('canvass').getContext('2d');
+                // destroy existing chart
+
+                if (typeof $myChart !== "undefined") {
+                    $myChart.destroy();
+                }
+
+                var ctx = document.getElementById('canvas').getContext('2d');
                 var config = {
                     type: this.type,
                     data: {
@@ -224,11 +233,7 @@
                     }
                 };
 
-                // destroy existing chart
 
-                if (typeof $myChart !== "undefined") {
-                    $myChart.destroy();
-                }
 
                 // set instance, so we can destroy when rendering new chart
 

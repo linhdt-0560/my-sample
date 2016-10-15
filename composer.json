@@ -10,7 +10,9 @@
         "socieboy/alerts" : "dev-master",
         "creativeorange/gravatar": "~1.0",
         "intervention/image": "^2.3",
-        "laravelcollective/html": "^5.3"
+        "laravelcollective/html": "^5.3",
+        "laravel/socialite": "^2.0",
+        "evercode1/foundation-maker": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

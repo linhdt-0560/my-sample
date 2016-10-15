@@ -2,7 +2,7 @@
 
 namespace App\ChartHelpers;
 
-use DB;
+
 use Illuminate\Http\Request;
 
 class BuildsCharts

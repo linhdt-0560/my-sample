@@ -14,9 +14,9 @@
 
 <body role="document">
 
-<div id="app">
-
 @include('layouts.facebook')
+
+<div id="app">
 
 @include('layouts.nav')
 
