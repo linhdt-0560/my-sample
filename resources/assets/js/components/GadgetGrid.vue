@@ -65,19 +65,19 @@
                 <!-- paginate here -->
 
                 <ul class="pagination pull-right">
-                    <li><a @click="getData(first_page_url)"> first </a></li>
+                    <li><a @click.prevent="getData(first_page_url)"> first </a></li>
                     <li v-if="checkUrlNotNull(prev_page_url)">
                         <a @click.prevent="getData(prev_page_url)" >prev</a>
                     </li>
                     <li v-for="page in pages"
                         v-if="page > current_page - 2 && page < current_page + 2"
                         v-bind:class="{'active': checkPage(page)}">
-                        <a @click="getData(page)">{{ page }}</a>
+                        <a @click.prevent="getData(page)">{{ page }}</a>
                     </li>
                     <li v-if="checkUrlNotNull(next_page_url)">
-                        <a @click="getData(next_page_url)">next</a>
+                        <a @click.prevent="getData(next_page_url)">next</a>
                     </li>
-                    <li><a @click="getData(last_page_url)"> last </a></li>
+                    <li><a @click.prevent="getData(last_page_url)"> last </a></li>
                 </ul>
             </div>
         </div>
