@@ -43,19 +43,15 @@ class GadgetController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
 
             'name' => 'required|unique:gadgets|string|max:30',
 
         ]);
-
         $gadget = Gadget::create(['name' => $request->name]);
-
         $gadget->save();
 
         return Redirect::route('gadget.index');
-
     }
 
     /**
@@ -64,7 +60,6 @@ class GadgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function show($id)
     {
         $gadget = Gadget::findOrFail($id);
