@@ -16,9 +16,7 @@ class GadgetController extends Controller
 
     public function index()
     {
-
         return view('gadget.index');
-
     }
 
     /**
@@ -29,9 +27,7 @@ class GadgetController extends Controller
 
     public function create()
     {
-
         return view('gadget.create');
-
     }
 
     /**
@@ -40,22 +36,17 @@ class GadgetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
-
         $this->validate($request, [
 
             'name' => 'required|unique:gadgets|string|max:30',
 
         ]);
-
         $gadget = Gadget::create(['name' => $request->name]);
-
         $gadget->save();
 
         return Redirect::route('gadget.index');
-
     }
 
     /**
@@ -64,13 +55,11 @@ class GadgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function show($id)
     {
         $gadget = Gadget::findOrFail($id);
 
         return view('gadget.show', compact('gadget'));
-
     }
 
     /**
@@ -79,7 +68,6 @@ class GadgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function edit($id)
     {
         $gadget = Gadget::findOrFail($id);
