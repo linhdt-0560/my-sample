@@ -16,9 +16,7 @@ class ApiController extends Controller
 
     public function gadgetData(Request $request)
     {
-
         return GridQuery::sendData($request, new GadgetQuery);
-
     }
 
     // End Gadget Api Data Grid Method
